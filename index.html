@@ -226,22 +226,25 @@
   /* ── TRUST BAR ── */
   .trust-bar {
     background: var(--blu);
-    padding: 14px 20px;
-    display: flex;
-    overflow-x: auto;
-    gap: 24px;
-    scrollbar-width: none;
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
   }
-  .trust-bar::-webkit-scrollbar { display: none; }
   .trust-item {
     display: flex;
     align-items: center;
-    gap: 7px;
-    white-space: nowrap;
+    gap: 8px;
     color: rgba(255,255,255,0.85);
     font-size: 13px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 10px 12px;
   }
-  .trust-item svg { width: 16px; height: 16px; fill: var(--arancio); flex-shrink: 0; }
+  .trust-item svg { width: 18px; height: 18px; fill: var(--arancio); flex-shrink: 0; }
+  @media (min-width: 768px) {
+    .trust-bar { grid-template-columns: repeat(4, 1fr); }
+  }
 
   /* ── SERVIZI ── */
   .section-servizi {
