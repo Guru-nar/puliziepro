@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PuliziePro — San Bonifacio e Provincia</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --blu: #0C447C;
+    --blu-scuro: #042C53;
+    --blu-medio: #185FA5;
+    --arancio: #EF9F27;
+    --arancio-scuro: #412402;
+    --bianco: #FFFFFF;
+    --grigio-card: #1a1a1a;
+    --grigio-bg: #111111;
+    --testo-muted: rgba(255,255,255,0.7);
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #fff; overflow-x: hidden; }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: var(--blu);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+  }
+  .nav-logo {
+    color: var(--bianco);
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    text-decoration: none;
+  }
+  .nav-hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--bianco);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  .nav-links {
+    display: none;
+    position: fixed;
+    top: 52px; left: 0; right: 0;
+    background: var(--blu-scuro);
+    flex-direction: column;
+    padding: 12px 0;
+    z-index: 999;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a {
+    color: var(--bianco);
+    text-decoration: none;
+    padding: 14px 24px;
+    font-size: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    transition: background 0.2s;
+  }
+  .nav-links a:last-child { border-bottom: none; }
+  .nav-links a:active { background: rgba(255,255,255,0.1); }
+
+  /* Desktop nav */
+  @media (min-width: 768px) {
+    .nav-hamburger { display: none; }
+    .nav-links {
+      display: flex !important;
+      position: static;
+      flex-direction: row;
+      background: none;
+      padding: 0;
+      gap: 8px;
+    }
+    .nav-links a {
+      padding: 8px 14px;
+      border-bottom: none;
+      font-size: 14px;
+      border-radius: 6px;
+    }
+    .nav-links a:hover { background: rgba(255,255,255,0.12); }
+  }
+
+  /* ── HERO SLIDER ── */
+  .hero {
+    position: relative;
+    height: 100svh;
+    min-height: 580px;
+    overflow: hidden;
+    margin-top: 52px;
+  }
+  .slides {
+    display: flex;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.77,0,0.18,1);
+  }
+  .slide {
+    min-width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+  }
+  .slide-1 { background-image: url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80'); }
+  .slide-2 { background-image: url('https://images.unsplash.com/photo-1527515637462-cff94aca208e?w=800&q=80'); }
+  .slide-3 { background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80'); }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(4,44,83,0.75) 0%, rgba(4,44,83,0.55) 50%, rgba(4,44,83,0.8) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px 20px;
+  }
+  .hero-badge {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.75);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .hero-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--bianco);
+    line-height: 1.15;
+    margin-bottom: 16px;
+    max-width: 340px;
+  }
+  .hero-subtitle {
+    font-size: 15px;
+    color: var(--testo-muted);
+    line-height: 1.6;
+    max-width: 300px;
+    margin-bottom: 28px;
+  }
+  .hero-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 280px;
+  }
+  .btn-primary {
+    background: var(--arancio);
+    color: var(--arancio-scuro);
+    padding: 15px 24px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.15s, opacity 0.15s;
+  }
+  .btn-primary:active { transform: scale(0.97); opacity: 0.9; }
+  .btn-secondary {
+    background: rgba(255,255,255,0.12);
+    color: var(--bianco);
+    padding: 15px 24px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    cursor: pointer;
+    text-align: center;
+    backdrop-filter: blur(4px);
+    transition: transform 0.15s, background 0.2s;
+  }
+  .btn-secondary:active { transform: scale(0.97); background: rgba(255,255,255,0.2); }
+
+  .slider-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    padding: 0;
+  }
+  .dot.active { background: var(--bianco); transform: scale(1.3); }
+
+  /* Desktop hero */
+  @media (min-width: 768px) {
+    .hero-title { font-size: 48px; max-width: 600px; }
+    .hero-subtitle { font-size: 17px; max-width: 480px; }
+    .hero-buttons { flex-direction: row; max-width: none; width: auto; }
+    .btn-primary, .btn-secondary { padding: 14px 28px; font-size: 15px; }
+  }
+
+  /* ── TRUST BAR ── */
+  .trust-bar {
+    background: var(--blu);
+    padding: 14px 20px;
+    display: flex;
+    overflow-x: auto;
+    gap: 24px;
+    scrollbar-width: none;
+  }
+  .trust-bar::-webkit-scrollbar { display: none; }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+    color: rgba(255,255,255,0.85);
+    font-size: 13px;
+  }
+  .trust-item svg { width: 16px; height: 16px; fill: var(--arancio); flex-shrink: 0; }
+
+  /* ── SERVIZI ── */
+  .section-servizi {
+    background: var(--grigio-bg);
+    padding: 48px 16px;
+  }
+  .section-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--bianco);
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .section-subtitle {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .cards-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .card {
+    background: var(--grigio-card);
+    border-radius: 16px;
+    padding: 22px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    border: 1px solid rgba(255,255,255,0.07);
+    transition: transform 0.2s, border-color 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.08;
+    z-index: 0;
+  }
+  .card-1::before { background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&q=60'); }
+  .card-2::before { background-image: url('https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400&q=60'); }
+  .card-3::before { background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&q=60'); }
+  .card:active { transform: scale(0.98); border-color: rgba(255,255,255,0.15); }
+  .card-icon {
+    width: 48px; height: 48px;
+    background: rgba(24,95,165,0.25);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+  .card-icon svg { width: 24px; height: 24px; fill: var(--arancio); }
+  .card-content { z-index: 1; }
+  .card-title { font-size: 16px; font-weight: 700; color: var(--bianco); margin-bottom: 5px; }
+  .card-desc { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+
+  @media (min-width: 768px) {
+    .cards-grid { flex-direction: row; max-width: 900px; }
+    .card { flex-direction: column; align-items: flex-start; }
+  }
+
+  /* ── CTA ── */
+  .section-cta {
+    background: var(--blu);
+    padding: 36px 20px;
+    text-align: center;
+  }
+  .cta-title { font-size: 20px; font-weight: 700; color: var(--bianco); margin-bottom: 6px; }
+  .cta-sub { font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 20px; }
+  .cta-buttons { display: flex; flex-direction: column; gap: 10px; max-width: 280px; margin: 0 auto; }
+
+  @media (min-width: 768px) {
+    .section-cta { display: flex; align-items: center; justify-content: space-between; text-align: left; padding: 28px 48px; }
+    .cta-buttons { flex-direction: row; max-width: none; margin: 0; }
+    .cta-sub { margin-bottom: 0; }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--blu-scuro);
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+  }
+  footer span { font-size: 12px; color: rgba(255,255,255,0.35); }
+  @media (min-width: 768px) {
+    footer { flex-direction: row; justify-content: space-between; text-align: left; }
+  }
+
+  /* ── CHAT BOT WIDGET ── */
+  .chat-widget {
+    position: fixed;
+    bottom: 24px;
+    right: 16px;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+  }
+
+  .chat-bubble {
+    background: var(--grigio-card);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px 16px 4px 16px;
+    padding: 14px 16px;
+    max-width: 240px;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    animation: slideUp 0.25s ease;
+  }
+  .chat-bubble.open { display: flex; }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .chat-bubble-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .chat-bubble-title { font-size: 14px; font-weight: 700; color: var(--bianco); }
+  .chat-close {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.4);
+    font-size: 18px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+  }
+  .chat-message {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+  }
+  .chat-actions { display: flex; flex-direction: column; gap: 8px; }
+  .chat-btn-wa {
+    background: #25D366;
+    color: var(--bianco);
+    padding: 11px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    transition: opacity 0.15s;
+  }
+  .chat-btn-wa:active { opacity: 0.85; }
+  .chat-btn-wa svg { width: 18px; height: 18px; fill: white; }
+  .chat-btn-form {
+    background: rgba(255,255,255,0.08);
+    color: var(--bianco);
+    padding: 11px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: background 0.15s;
+  }
+  .chat-btn-form:active { background: rgba(255,255,255,0.15); }
+
+  .chat-fab {
+    width: 56px; height: 56px;
+    background: var(--arancio);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 4px 20px rgba(239,159,39,0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .chat-fab:active { transform: scale(0.92); box-shadow: 0 2px 10px rgba(239,159,39,0.4); }
+  .chat-fab svg { width: 26px; height: 26px; fill: var(--arancio-scuro); }
+  .chat-fab .icon-close { display: none; }
+  .chat-fab.open .icon-chat { display: none; }
+  .chat-fab.open .icon-close { display: block; }
+
+  .chat-notify {
+    position: absolute;
+    top: -3px; right: -3px;
+    width: 14px; height: 14px;
+    background: #E24B4A;
+    border-radius: 50%;
+    border: 2px solid #111;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="#" class="nav-logo">PuliziePro</a>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navLinks">
+    <a href="#home" onclick="closeMenu()">Home</a>
+    <a href="#servizi" onclick="closeMenu()">Servizi</a>
+    <a href="#chi-siamo" onclick="closeMenu()">Chi siamo</a>
+    <a href="#contatti" onclick="closeMenu()">Contatti</a>
+  </div>
+</nav>
+
+<!-- HERO SLIDER -->
+<section class="hero" id="home">
+  <div class="slides" id="slides">
+    <div class="slide slide-1"></div>
+    <div class="slide slide-2"></div>
+    <div class="slide slide-3"></div>
+  </div>
+  <div class="hero-overlay">
+    <p class="hero-badge">Pulizie professionali — San Bonifacio e provincia</p>
+    <h1 class="hero-title">Cantieri puliti,<br>uffici impeccabili</h1>
+    <p class="hero-subtitle">Interventi di fine cantiere, pulizia di fondo e ambienti di lavoro. Preventivo gratuito in 24 ore.</p>
+    <div class="hero-buttons">
+      <a href="#contatti" class="btn-primary">Richiedi preventivo</a>
+      <a href="#servizi" class="btn-secondary">Scopri i servizi</a>
+    </div>
+  </div>
+  <div class="slider-dots" id="dots">
+    <button class="dot active" onclick="goTo(0)"></button>
+    <button class="dot" onclick="goTo(1)"></button>
+    <button class="dot" onclick="goTo(2)"></button>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    Preventivo gratuito
+  </div>
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    Risposta in 24h
+  </div>
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+    San Bonifacio e prov.
+  </div>
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+    Personale qualificato
+  </div>
+</div>
+
+<!-- SERVIZI -->
+<section class="section-servizi" id="servizi">
+  <h2 class="section-title">I nostri servizi</h2>
+  <p class="section-subtitle">Professionisti della pulizia a San Bonifacio</p>
+  <div class="cards-grid">
+    <div class="card card-1">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+      </div>
+      <div class="card-content">
+        <div class="card-title">Fine cantiere</div>
+        <div class="card-desc">Pulizia completa al termine dei lavori edilizi. Rimozione polveri, residui e riconsegna del locale pronto all'uso.</div>
+      </div>
+    </div>
+    <div class="card card-2">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24"><path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+      </div>
+      <div class="card-content">
+        <div class="card-title">Pulizia di fondo</div>
+        <div class="card-desc">Sgrassatura, disinfezione e pulizia profonda di ogni superficie. Ideale per traslochi e ristrutturazioni.</div>
+      </div>
+    </div>
+    <div class="card card-3">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      </div>
+      <div class="card-content">
+        <div class="card-title">Uffici</div>
+        <div class="card-desc">Pulizie ordinarie e straordinarie per ambienti professionali. Orari flessibili per non disturbare il lavoro.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section-cta" id="contatti">
+  <div>
+    <div class="cta-title">Hai bisogno di un preventivo?</div>
+    <div class="cta-sub">Rispondiamo entro 24 ore — è gratuito e senza impegno</div>
+  </div>
+  <div class="cta-buttons">
+    <a href="https://wa.me/39NUMEROQUI?text=Ciao%2C+vi+contatto+dal+sito+per+un+preventivo" class="btn-primary">WhatsApp</a>
+    <a href="mailto:info@puliziepro.it" class="btn-secondary">Scrivi email</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 PuliziePro — San Bonifacio e provincia</span>
+  <span>P.IVA 00000000000</span>
+</footer>
+
+<!-- CHAT BOT WIDGET -->
+<div class="chat-widget">
+  <div class="chat-bubble" id="chatBubble">
+    <div class="chat-bubble-header">
+      <span class="chat-bubble-title">Ciao! 👋 Come possiamo aiutarti?</span>
+      <button class="chat-close" onclick="toggleChat()">✕</button>
+    </div>
+    <p class="chat-message">Siamo un'azienda di pulizie a San Bonifacio. Scrivici per un preventivo gratuito!</p>
+    <div class="chat-actions">
+      <a href="https://wa.me/39NUMEROQUI?text=Ciao%2C+vi+contatto+dal+sito+per+un+preventivo" class="chat-btn-wa" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Scrivici su WhatsApp
+      </a>
+      <a href="#contatti" class="chat-btn-form" onclick="toggleChat()">Richiedi preventivo</a>
+    </div>
+  </div>
+  <button class="chat-fab" id="chatFab" onclick="toggleChat()" aria-label="Apri chat">
+    <div class="chat-notify" id="chatNotify"></div>
+    <svg class="icon-chat" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+    <svg class="icon-close" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
+  </button>
+</div>
+
+<script>
+// ── HAMBURGER ──
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  navLinks.classList.toggle('open');
+});
+function closeMenu() {
+  hamburger.classList.remove('open');
+  navLinks.classList.remove('open');
+}
+
+// ── SLIDER ──
+let current = 0;
+const slides = document.getElementById('slides');
+const dots = document.querySelectorAll('.dot');
+const total = 3;
+
+function goTo(n) {
+  current = n;
+  slides.style.transform = `translateX(-${current * 100}%)`;
+  dots.forEach((d, i) => d.classList.toggle('active', i === current));
+}
+
+setInterval(() => goTo((current + 1) % total), 5000);
+
+// Touch swipe
+let startX = 0;
+slides.addEventListener('touchstart', e => startX = e.touches[0].clientX, {passive: true});
+slides.addEventListener('touchend', e => {
+  const diff = startX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 50) goTo(diff > 0 ? (current + 1) % total : (current - 1 + total) % total);
+}, {passive: true});
+
+// ── CHAT ──
+const chatFab = document.getElementById('chatFab');
+const chatBubble = document.getElementById('chatBubble');
+const chatNotify = document.getElementById('chatNotify');
+
+// Mostra notifica dopo 3 secondi
+setTimeout(() => { chatNotify.style.display = 'block'; }, 3000);
+
+// Apri automaticamente dopo 5 secondi
+setTimeout(() => {
+  if (!chatBubble.classList.contains('open')) {
+    chatBubble.classList.add('open');
+    chatFab.classList.add('open');
+    chatNotify.style.display = 'none';
+  }
+}, 5000);
+
+function toggleChat() {
+  chatBubble.classList.toggle('open');
+  chatFab.classList.toggle('open');
+  chatNotify.style.display = 'none';
+}
+</script>
+</body>
+</html>
