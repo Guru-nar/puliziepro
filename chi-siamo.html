@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chi siamo — PuliziePro</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --blu:#0C447C;--blu-scuro:#042C53;--blu-medio:#185FA5;
+  --arancio:#EF9F27;--arancio-scuro:#412402;
+  --bianco:#FFFFFF;--grigio-card:#1a1a1a;--grigio-bg:#111111;
+  --testo-muted:rgba(255,255,255,0.65);
+}
+html{scroll-behavior:smooth;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--grigio-bg);color:var(--bianco);overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--blu);display:flex;align-items:center;justify-content:space-between;padding:14px 20px;}
+.nav-logo{color:#fff;font-size:18px;font-weight:700;text-decoration:none;}
+.nav-hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;}
+.nav-hamburger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;transition:all .3s;}
+.nav-hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.nav-hamburger.open span:nth-child(2){opacity:0;}
+.nav-hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.nav-links{display:none;position:fixed;top:52px;left:0;right:0;background:var(--blu-scuro);flex-direction:column;padding:12px 0;z-index:999;}
+.nav-links.open{display:flex;}
+.nav-links a{color:#fff;text-decoration:none;padding:14px 24px;font-size:16px;border-bottom:1px solid rgba(255,255,255,0.08);}
+.nav-links a.active{color:var(--arancio);}
+@media(min-width:768px){
+  .nav-hamburger{display:none;}
+  .nav-links{display:flex!important;position:static;flex-direction:row;background:none;padding:0;gap:8px;}
+  .nav-links a{padding:8px 14px;border-bottom:none;font-size:14px;border-radius:6px;}
+  .nav-links a:hover{background:rgba(255,255,255,0.12);}
+}
+
+/* HERO */
+.page-hero{
+  margin-top:52px;
+  background:linear-gradient(135deg,var(--blu-scuro) 0%,var(--blu) 60%,var(--blu-medio) 100%);
+  padding:52px 24px 40px;
+  position:relative;
+  overflow:hidden;
+}
+.page-hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&q=60');
+  background-size:cover;background-position:center;
+  opacity:0.07;
+}
+.page-hero-label{font-size:11px;font-weight:700;letter-spacing:2.5px;color:var(--arancio);text-transform:uppercase;margin-bottom:12px;position:relative;}
+.page-hero-title{font-size:28px;font-weight:800;color:#fff;line-height:1.2;position:relative;max-width:340px;}
+.page-hero-sub{font-size:14px;color:var(--testo-muted);margin-top:12px;position:relative;max-width:320px;line-height:1.6;}
+@media(min-width:768px){
+  .page-hero{padding:72px 48px 56px;}
+  .page-hero-title{font-size:40px;max-width:600px;}
+  .page-hero-sub{max-width:500px;}
+}
+
+/* SEZIONE STORIA */
+.section{padding:40px 20px;}
+@media(min-width:768px){.section{padding:56px 48px;max-width:960px;margin:0 auto;}}
+
+.storia-grid{display:grid;grid-template-columns:1fr;gap:20px;}
+@media(min-width:768px){.storia-grid{grid-template-columns:1fr 1fr;gap:32px;}}
+
+.storia-testo h2{font-size:20px;font-weight:700;color:#fff;margin-bottom:14px;}
+.storia-testo p{font-size:14px;color:var(--testo-muted);line-height:1.8;margin-bottom:12px;}
+
+.storia-img{
+  border-radius:16px;
+  overflow:hidden;
+  height:220px;
+  position:relative;
+}
+.storia-img img{width:100%;height:100%;object-fit:cover;filter:brightness(0.85);}
+.storia-img-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(4,44,83,0.8) 0%,transparent 60%);
+  display:flex;align-items:flex-end;padding:16px;
+}
+.storia-img-overlay span{font-size:12px;color:rgba(255,255,255,0.7);}
+
+/* NUMERI */
+.numeri-section{background:var(--blu-scuro);padding:40px 20px;}
+.numeri-title{font-size:18px;font-weight:700;color:#fff;text-align:center;margin-bottom:6px;}
+.numeri-sub{font-size:13px;color:var(--testo-muted);text-align:center;margin-bottom:28px;}
+.numeri-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:480px;margin:0 auto;}
+@media(min-width:768px){.numeri-grid{grid-template-columns:repeat(4,1fr);max-width:900px;}}
+.numero-card{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:16px;
+  padding:20px 14px;
+  text-align:center;
+  transition:transform .2s,border-color .2s;
+}
+.numero-card:hover{transform:translateY(-3px);border-color:rgba(239,159,39,0.3);}
+.numero-val{font-size:30px;font-weight:800;color:var(--arancio);margin-bottom:4px;}
+.numero-label{font-size:12px;color:var(--testo-muted);}
+
+/* VALORI */
+.valori-section{padding:40px 20px;background:var(--grigio-bg);}
+@media(min-width:768px){.valori-section{padding:56px 48px;}}
+.valori-title{font-size:20px;font-weight:700;color:#fff;text-align:center;margin-bottom:6px;}
+.valori-sub{font-size:13px;color:var(--testo-muted);text-align:center;margin-bottom:28px;}
+.valori-grid{display:flex;flex-direction:column;gap:14px;max-width:600px;margin:0 auto;}
+@media(min-width:768px){.valori-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:900px;}}
+.valore-item{
+  background:var(--grigio-card);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:14px;
+  padding:20px;
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+  transition:border-color .2s;
+}
+.valore-item:hover{border-color:rgba(239,159,39,0.25);}
+.valore-icon{
+  width:42px;height:42px;
+  background:rgba(24,95,165,0.2);
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.valore-icon svg{width:22px;height:22px;stroke:var(--arancio);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.valore-text h3{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px;}
+.valore-text p{font-size:12px;color:var(--testo-muted);line-height:1.5;}
+
+/* TEAM / GARANZIA */
+.garanzia-section{
+  background:linear-gradient(135deg,var(--blu) 0%,var(--blu-scuro) 100%);
+  padding:40px 20px;
+  text-align:center;
+}
+.garanzia-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:30px;padding:8px 16px;
+  font-size:12px;color:rgba(255,255,255,0.85);
+  margin-bottom:20px;
+}
+.garanzia-title{font-size:22px;font-weight:800;color:#fff;margin-bottom:12px;}
+.garanzia-text{font-size:14px;color:var(--testo-muted);line-height:1.7;max-width:340px;margin:0 auto 24px;}
+.btn-wa{
+  display:inline-flex;align-items:center;gap:10px;
+  background:#25D366;color:#fff;
+  padding:14px 24px;border-radius:12px;
+  font-size:15px;font-weight:700;text-decoration:none;
+  transition:opacity .15s;
+}
+.btn-wa:active{opacity:.85;}
+.btn-wa svg{width:20px;height:20px;fill:#fff;}
+
+/* FOOTER */
+footer{background:var(--blu-scuro);padding:20px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;}
+footer span{font-size:12px;color:rgba(255,255,255,0.35);}
+@media(min-width:768px){footer{flex-direction:row;justify-content:space-between;text-align:left;padding:20px 48px;}}
+
+/* CHAT */
+.chat-widget{position:fixed;bottom:24px;right:16px;z-index:2000;display:flex;flex-direction:column;align-items:flex-end;gap:10px;}
+.chat-bubble{background:#1a1a1a;border:1px solid rgba(255,255,255,0.1);border-radius:16px 16px 4px 16px;padding:14px 16px;max-width:240px;display:none;flex-direction:column;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,0.4);animation:slideUp .25s ease;}
+.chat-bubble.open{display:flex;}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.chat-bubble-header{display:flex;align-items:center;justify-content:space-between;}
+.chat-bubble-title{font-size:14px;font-weight:700;color:#fff;}
+.chat-close{background:none;border:none;color:rgba(255,255,255,0.4);font-size:18px;cursor:pointer;line-height:1;padding:0;}
+.chat-message{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.5;}
+.chat-actions{display:flex;flex-direction:column;gap:8px;}
+.chat-btn-wa{background:#25D366;color:#fff;padding:11px 14px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:8px;justify-content:center;}
+.chat-btn-wa svg{width:18px;height:18px;fill:white;}
+.chat-btn-form{background:rgba(255,255,255,0.08);color:#fff;padding:11px 14px;border-radius:10px;font-size:13px;font-weight:600;text-decoration:none;text-align:center;border:1px solid rgba(255,255,255,0.15);}
+.chat-fab{width:56px;height:56px;background:var(--arancio);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;box-shadow:0 4px 20px rgba(239,159,39,0.5);transition:transform .2s;}
+.chat-fab:active{transform:scale(0.92);}
+.chat-fab svg{width:26px;height:26px;fill:var(--arancio-scuro);}
+.chat-fab .icon-close{display:none;}
+.chat-fab.open .icon-chat{display:none;}
+.chat-fab.open .icon-close{display:block;}
+.chat-notify{position:absolute;top:-3px;right:-3px;width:14px;height:14px;background:#E24B4A;border-radius:50%;border:2px solid #111;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.2);}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">PuliziePro</a>
+  <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="chi-siamo.html" class="active">Chi siamo</a>
+    <a href="servizi.html">Servizi</a>
+    <a href="contatti.html">Contatti</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-label">Chi siamo</div>
+  <h1 class="page-hero-title">Un'azienda locale che lavora con serietà</h1>
+  <p class="page-hero-sub">Nati a San Bonifacio, cresciuti grazie alla fiducia dei nostri clienti. Ogni cantiere, ogni ufficio, ogni intervento — fatto come se fosse il nostro.</p>
+</div>
+
+<section class="section">
+  <div class="storia-grid">
+    <div class="storia-testo">
+      <h2>La nostra storia</h2>
+      <p>Siamo un'azienda di pulizie con sede a San Bonifacio, specializzata in interventi post-cantiere e ambienti professionali. Operiamo con serietà, puntualità e attenzione ai dettagli.</p>
+      <p>Il nostro obiettivo è semplice: lasciare ogni ambiente perfettamente pulito, pronto per essere utilizzato. Non facciamo compromessi sulla qualità — mai.</p>
+      <p>Utilizziamo prodotti professionali certificati e personale selezionato per garantire risultati che parlano da soli.</p>
+    </div>
+    <div class="storia-img">
+      <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&q=80" alt="Team PuliziePro al lavoro">
+      <div class="storia-img-overlay"><span>Il nostro team al lavoro</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="numeri-section">
+  <div class="numeri-title">I numeri che ci rappresentano</div>
+  <div class="numeri-sub">Risultati concreti, non promesse</div>
+  <div class="numeri-grid">
+    <div class="numero-card"><div class="numero-val">100%</div><div class="numero-label">Clienti soddisfatti</div></div>
+    <div class="numero-card"><div class="numero-val">24h</div><div class="numero-label">Risposta preventivi</div></div>
+    <div class="numero-card"><div class="numero-val">3+</div><div class="numero-label">Anni di esperienza</div></div>
+    <div class="numero-card"><div class="numero-val">VR</div><div class="numero-label">San Bonifacio e prov.</div></div>
+  </div>
+</div>
+
+<div class="valori-section">
+  <div class="valori-title">Cosa ci rende diversi</div>
+  <div class="valori-sub">Non solo pulizia — professionalità a 360°</div>
+  <div class="valori-grid">
+    <div class="valore-item">
+      <div class="valore-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+      <div class="valore-text"><h3>Personale assicurato</h3><p>Tutto il nostro team è coperto da assicurazione professionale. Lavoriamo in sicurezza, per te e per noi.</p></div>
+    </div>
+    <div class="valore-item">
+      <div class="valore-icon"><svg viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+      <div class="valore-text"><h3>Puntuali sempre</h3><p>Rispettiamo gli orari concordati. Il tuo tempo è prezioso e lo trattiamo come tale.</p></div>
+    </div>
+    <div class="valore-item">
+      <div class="valore-icon"><svg viewBox="0 0 24 24"><path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg></div>
+      <div class="valore-text"><h3>Prodotti eco-certificati</h3><p>Utilizziamo detergenti professionali rispettosi dell'ambiente e delle persone che abitano gli spazi.</p></div>
+    </div>
+    <div class="valore-item">
+      <div class="valore-icon"><svg viewBox="0 0 24 24"><path d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/></svg></div>
+      <div class="valore-text"><h3>Sempre raggiungibili</h3><p>Risposta rapida via WhatsApp o telefono. Nessuna attesa, nessuna burocrazia inutile.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="garanzia-section">
+  <div class="garanzia-badge">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EF9F27" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+    Preventivo gratuito e senza impegno
+  </div>
+  <div class="garanzia-title">Pronti ad aiutarti</div>
+  <div class="garanzia-text">Che si tratti di un piccolo ufficio o di un cantiere appena finito, siamo qui. Contattaci e ti risponderemo entro 24 ore con un preventivo su misura.</div>
+  <a href="https://wa.me/393285984595?text=Ciao%2C+vi+contatto+dal+sito+per+un+preventivo" class="btn-wa" target="_blank">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Scrivici su WhatsApp
+  </a>
+</div>
+
+<footer>
+  <span>© 2025 PuliziePro — San Bonifacio e provincia</span>
+  <span>P.IVA 00000000000</span>
+</footer>
+
+<div class="chat-widget">
+  <div class="chat-bubble" id="chatBubble">
+    <div class="chat-bubble-header">
+      <span class="chat-bubble-title">Ciao! 👋 Come possiamo aiutarti?</span>
+      <button class="chat-close" onclick="toggleChat()">✕</button>
+    </div>
+    <p class="chat-message">Siamo un'azienda di pulizie a San Bonifacio. Scrivici per un preventivo gratuito!</p>
+    <div class="chat-actions">
+      <a href="https://wa.me/393285984595?text=Ciao%2C+vi+contatto+dal+sito+per+un+preventivo" class="chat-btn-wa" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Scrivici su WhatsApp
+      </a>
+      <a href="contatti.html" class="chat-btn-form">Richiedi preventivo</a>
+    </div>
+  </div>
+  <button class="chat-fab" id="chatFab" onclick="toggleChat()" aria-label="Apri chat">
+    <div class="chat-notify" id="chatNotify"></div>
+    <svg class="icon-chat" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+    <svg class="icon-close" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
+  </button>
+</div>
+
+<script>
+const hamburger=document.getElementById('hamburger');
+const navLinks=document.getElementById('navLinks');
+hamburger.addEventListener('click',()=>{hamburger.classList.toggle('open');navLinks.classList.toggle('open');});
+const chatFab=document.getElementById('chatFab');
+const chatBubble=document.getElementById('chatBubble');
+const chatNotify=document.getElementById('chatNotify');
+setTimeout(()=>{chatNotify.style.display='block';},3000);
+setTimeout(()=>{if(!chatBubble.classList.contains('open')){chatBubble.classList.add('open');chatFab.classList.add('open');chatNotify.style.display='none';}},5000);
+function toggleChat(){chatBubble.classList.toggle('open');chatFab.classList.toggle('open');chatNotify.style.display='none';}
+</script>
+</body>
+</html>
